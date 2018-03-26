@@ -1,5 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const history = require('connect-history-api-fallback')
+const convert = require('koa-connect')
 
 module.exports = {
   mode: 'development',
@@ -23,4 +25,10 @@ module.exports = {
       inject: 'body'
     })
   ]
+}
+
+module.exports.serve = {
+  add: (app, middleware, options) => {
+    app.use(convert(history({})));
+  }
 }
